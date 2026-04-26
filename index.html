@@ -1,0 +1,1707 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="theme-color" content="#1a0a2e"/>
+<title>TiciaJeans — Moda com Estilo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#0d0618;
+  --surface:#160d28;
+  --surface2:#1f1438;
+  --border:#2d1f50;
+  --text:#f0eaff;
+  --sub:#8b7aa8;
+  --muted:#4a3a68;
+  --accent:#c084fc;
+  --accent2:#f472b6;
+  --gold:#fbbf24;
+  --success:#34d399;
+  --danger:#f87171;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.fade-up{animation:fadeUp .5s ease both}
+.fade-up-d1{animation:fadeUp .5s .1s ease both}
+.fade-up-d2{animation:fadeUp .5s .2s ease both}
+.fade-up-d3{animation:fadeUp .5s .3s ease both}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(13,6,24,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.header-actions{display:flex;gap:8px;align-items:center}
+.icon-btn{background:var(--surface2);border:1px solid var(--border);border-radius:10px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;color:var(--sub)}
+.cart-badge{position:absolute;top:-4px;right:-4px;width:16px;height:16px;background:var(--accent2);border-radius:50%;font-size:9px;font-weight:900;color:#fff;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+
+/* HERO */
+.hero{padding:32px 16px 24px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:300px;height:300px;background:radial-gradient(circle,rgba(192,132,252,.25),transparent 70%);pointer-events:none}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,rgba(192,132,252,.15),rgba(244,114,182,.15));border:1px solid rgba(192,132,252,.3);border-radius:99px;padding:6px 14px;font-size:12px;font-weight:700;color:var(--accent);margin-bottom:16px;letter-spacing:.5px}
+.hero h1{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;line-height:1.15;margin-bottom:10px}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{color:var(--sub);font-size:14px;line-height:1.6;margin-bottom:24px}
+.hero-btns{display:flex;gap:10px;justify-content:center}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:14px;padding:13px 24px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px}
+.btn-outline{background:transparent;border:1.5px solid var(--border);border-radius:14px;padding:13px 20px;color:var(--text);font-size:14px;font-weight:700;cursor:pointer}
+
+/* CATEGORIES */
+.section{padding:20px 16px}
+.section-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.section-sub{color:var(--sub);font-size:13px;margin-bottom:16px}
+.cats{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.cat{flex-shrink:0;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:12px 18px;cursor:pointer;transition:all .2s;text-align:center}
+.cat.active{background:linear-gradient(135deg,rgba(192,132,252,.2),rgba(244,114,182,.2));border-color:var(--accent)}
+.cat-emoji{font-size:24px;display:block;margin-bottom:6px}
+.cat-label{font-size:12px;font-weight:700;color:var(--sub)}
+.cat.active .cat-label{color:var(--accent)}
+
+/* PRODUCTS GRID */
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px 20px}
+.product-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;cursor:pointer;transition:transform .15s}
+.product-card:active{transform:scale(.97)}
+.product-img{height:170px;display:flex;align-items:center;justify-content:center;font-size:64px;position:relative;background:linear-gradient(135deg,var(--surface2),var(--bg))}
+.product-badge{position:absolute;top:8px;left:8px;background:var(--accent2);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px}
+.product-wish{position:absolute;top:8px;right:8px;width:30px;height:30px;background:rgba(13,6,24,.7);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;font-size:14px;backdrop-filter:blur(10px)}
+.product-info{padding:12px 12px 14px}
+.product-name{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.3}
+.product-colors{display:flex;gap:4px;margin-bottom:8px}
+.color-dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--border)}
+.product-price{font-size:17px;font-weight:900;color:var(--accent);margin-bottom:8px}
+.product-sizes{display:flex;gap:4px;flex-wrap:wrap}
+.size-chip{font-size:10px;font-weight:700;padding:3px 7px;border-radius:6px;background:var(--surface2);color:var(--sub);border:1px solid var(--border)}
+
+/* PRODUCT DETAIL SHEET */
+.sheet-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;backdrop-filter:blur(4px);display:none}
+.sheet-overlay.open{display:block}
+.detail-sheet{position:fixed;bottom:0;left:0;right:0;max-height:92vh;background:var(--surface);border-radius:28px 28px 0 0;z-index:201;transform:translateY(100%);transition:transform .35s cubic-bezier(.34,1.56,.64,1);overflow-y:auto;max-width:430px;margin:0 auto}
+.detail-sheet.open{transform:translateY(0)}
+.sheet-handle{display:flex;justify-content:center;padding:12px 0 4px}
+.sheet-handle div{width:40px;height:4px;background:var(--border);border-radius:99px}
+.detail-hero{height:220px;display:flex;align-items:center;justify-content:center;font-size:96px;background:linear-gradient(135deg,var(--surface2),var(--bg));position:relative}
+.detail-close{position:absolute;top:14px;right:14px;background:var(--surface);border:none;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sub);font-size:18px}
+.detail-body{padding:20px 20px 40px}
+.detail-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.detail-price{font-size:26px;font-weight:900;color:var(--accent);margin-bottom:16px}
+
+/* COLOR SELECTOR */
+.selector-label{font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.color-selector{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+.color-opt{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .2s;position:relative}
+.color-opt.selected{border-color:var(--accent);transform:scale(1.15)}
+.color-opt.selected::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:900}
+
+/* SIZE SELECTOR */
+.size-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.size-opt{min-width:44px;height:44px;border-radius:12px;border:1.5px solid var(--border);background:var(--surface2);color:var(--sub);font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 10px;transition:all .2s}
+.size-opt.selected{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;color:#fff}
+.size-opt.unavailable{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+
+/* QTY */
+.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.qty-btn{width:40px;height:40px;border-radius:12px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.qty-val{font-size:18px;font-weight:800;min-width:28px;text-align:center}
+
+/* ADD TO CART BTN */
+.add-cart-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:800;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 30px rgba(192,132,252,.35)}
+
+/* CART DRAWER */
+.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:90%;max-width:400px;background:var(--surface);z-index:300;transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;border-left:1px solid var(--border)}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{padding:54px 20px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:1}
+.cart-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:700}
+.cart-item{display:flex;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.cart-item-img{width:60px;height:60px;border-radius:12px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:30px;flex-shrink:0}
+.cart-item-info{flex:1}
+.cart-item-name{font-size:14px;font-weight:700;margin-bottom:3px}
+.cart-item-meta{font-size:12px;color:var(--sub);margin-bottom:6px}
+.cart-item-price{font-size:15px;font-weight:800;color:var(--accent)}
+.cart-item-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;padding:4px}
+.cart-footer{padding:20px;border-top:1px solid var(--border);position:sticky;bottom:0;background:var(--surface)}
+.cart-total-row{display:flex;justify-content:space-between;margin-bottom:16px}
+.cart-total-label{color:var(--sub);font-size:14px}
+.cart-total-value{font-size:22px;font-weight:900;color:var(--accent)}
+.checkout-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:16px;color:#fff;font-size:16px;font-weight:800;cursor:pointer}
+
+/* CHECKOUT MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;display:none;align-items:flex-end}
+.modal-overlay.open{display:flex}
+.checkout-modal{background:var(--surface);width:100%;max-width:430px;margin:0 auto;border-radius:28px 28px 0 0;max-height:95vh;overflow-y:auto;animation:slideUp .35s ease}
+.modal-header{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.modal-title{font-family:'Playfair Display',serif;font-size:18px;font-weight:700}
+.steps{display:flex;gap:0;margin:0 20px 0;border-bottom:1px solid var(--border)}
+.step{flex:1;padding:12px 4px;text-align:center;font-size:11px;font-weight:700;color:var(--muted);border-bottom:2px solid transparent;cursor:pointer}
+.step.active{color:var(--accent);border-bottom-color:var(--accent)}
+.step.done{color:var(--success)}
+.modal-body{padding:20px}
+
+/* FORM */
+.form-group{margin-bottom:16px}
+.form-label{display:block;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:7px;text-transform:uppercase;letter-spacing:.6px}
+.form-input{width:100%;padding:13px 14px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;outline:none;font-family:'DM Sans',sans-serif;transition:border-color .2s}
+.form-input:focus{border-color:var(--accent)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* PAYMENT METHODS */
+.pay-methods{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.pay-method{display:flex;align-items:center;gap:14px;padding:14px;border-radius:16px;border:2px solid var(--border);background:var(--bg);cursor:pointer;transition:all .2s}
+.pay-method.selected{border-color:var(--accent);background:rgba(192,132,252,.08)}
+.pay-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.pay-info{flex:1}
+.pay-name{font-size:15px;font-weight:700;margin-bottom:2px}
+.pay-desc{font-size:12px;color:var(--sub)}
+.pay-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s}
+.pay-method.selected .pay-check{background:var(--accent);border-color:var(--accent)}
+
+/* PIX QR */
+.pix-box{background:var(--bg);border:1.5px solid var(--border);border-radius:18px;padding:20px;text-align:center;margin-bottom:16px}
+.pix-qr{width:160px;height:160px;background:#fff;border-radius:12px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#333;padding:10px}
+.pix-key-label{font-size:11px;color:var(--sub);margin-bottom:6px;font-weight:700;text-transform:uppercase}
+.pix-key{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;font-family:monospace;color:var(--accent);display:flex;align-items:center;justify-Content:space-between;gap:8px;cursor:pointer}
+.pix-timer{font-size:13px;color:var(--gold);font-weight:700;margin-top:10px}
+
+/* CRYPTO */
+.crypto-coins{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px}
+.crypto-coin{padding:12px 8px;border-radius:14px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;text-align:center;transition:all .2s}
+.crypto-coin.selected{border-color:var(--gold);background:rgba(251,191,36,.08)}
+.crypto-coin-icon{font-size:24px;margin-bottom:4px}
+.crypto-coin-name{font-size:10px;font-weight:800;color:var(--sub)}
+.crypto-coin.selected .crypto-coin-name{color:var(--gold)}
+.crypto-addr{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:12px;font-size:10px;font-family:monospace;color:var(--accent);word-break:break-all;margin-bottom:12px;cursor:pointer}
+
+/* ORDER SUCCESS */
+.success-screen{text-align:center;padding:40px 20px 60px}
+.success-icon{width:80px;height:80px;background:linear-gradient(135deg,var(--success),#059669);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;animation:pulse 2s infinite}
+.success-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:8px}
+.success-sub{color:var(--sub);font-size:14px;line-height:1.6;margin-bottom:24px}
+.order-id{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:12px 20px;font-size:13px;font-weight:700;color:var(--accent);margin-bottom:24px;display:inline-block}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:rgba(22,13,40,.97);border-top:1px solid var(--border);display:flex;padding:8px 0 22px;backdrop-filter:blur(20px);z-index:50;max-width:430px;margin:0 auto}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;padding:4px 0;position:relative}
+.nav-item svg{transition:all .2s}
+.nav-label{font-size:9px;font-weight:600;color:var(--muted)}
+.nav-item.active .nav-label{color:var(--accent);font-weight:800}
+.nav-dot{position:absolute;top:-8px;width:32px;height:3px;border-radius:99px;background:var(--accent);opacity:0}
+.nav-item.active .nav-dot{opacity:1}
+
+/* PAGE */
+.page{display:none;padding-bottom:90px}
+.page.active{display:block}
+
+/* ABOUT PAGE */
+.about-hero{padding:40px 20px 30px;text-align:center}
+.about-hero h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;margin-bottom:10px}
+.about-hero p{color:var(--sub);font-size:14px;line-height:1.7}
+.feature-cards{padding:0 16px 20px;display:flex;flex-direction:column;gap:12px}
+.feature-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;display:flex;gap:14px;align-items:flex-start}
+.feature-icon{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.feature-card h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.feature-card p{font-size:13px;color:var(--sub);line-height:1.5}
+
+/* PROFILE PAGE */
+.profile-hero{background:linear-gradient(135deg,var(--accent),var(--accent2));padding:50px 20px 30px;text-align:center}
+.profile-avatar{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.4)}
+.profile-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.profile-email{color:rgba(255,255,255,.7);font-size:13px}
+.menu-section{padding:16px 16px 0}
+.menu-label{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;padding-left:4px}
+.menu-list{background:var(--surface);border-radius:18px;border:1px solid var(--border);overflow:hidden;margin-bottom:16px}
+.menu-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer}
+.menu-item:last-child{border-bottom:none}
+.menu-item-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.menu-item-text{flex:1;font-size:14px;font-weight:600}
+.menu-item-arrow{color:var(--muted);font-size:16px}
+
+/* TOAST */
+.toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:11px 20px;font-size:13px;font-weight:700;color:var(--text);z-index:999;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.4);transition:transform .35s cubic-bezier(.34,1.56,.64,1),opacity .35s;opacity:0;pointer-events:none}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+/* EMPTY CART */
+.empty-cart{text-align:center;padding:60px 20px}
+.empty-cart-icon{font-size:56px;margin-bottom:16px;display:block;animation:float 3s ease-in-out infinite}
+.empty-cart h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px}
+.empty-cart p{color:var(--sub);font-size:14px}
+
+/* OVERLAY CLOSE */
+.overlay-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:290;display:none;backdrop-filter:blur(3px)}
+.overlay-bg.open{display:block}
+
+/* ── ADMIN PANEL ────────────────────── */
+.admin-bar{background:linear-gradient(135deg,#1a0a2e,#2d1060);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;display:none}
+.admin-bar.visible{display:flex}
+.admin-label{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.8px}
+.admin-btn{background:rgba(192,132,252,.2);border:1px solid rgba(192,132,252,.4);border-radius:8px;padding:5px 12px;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer}
+
+/* ── SIZE GUIDE MODAL ───────────────── */
+.size-guide-btn{display:flex;align-items:center;gap:5px;background:none;border:none;color:var(--accent);font-size:12px;font-weight:700;cursor:pointer;margin-bottom:14px;text-decoration:underline;text-underline-offset:3px}
+.size-table{width:100%;border-collapse:collapse;font-size:12px}
+.size-table th{background:var(--surface2);color:var(--sub);padding:8px 10px;text-align:center;font-weight:700;font-size:11px}
+.size-table td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);color:var(--text)}
+.size-table tr:nth-child(even) td{background:rgba(45,31,80,.3)}
+
+/* ── COUPON ─────────────────────────── */
+.coupon-row{display:flex;gap:8px;margin-bottom:16px}
+.coupon-input{flex:1;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);background:var(--bg);color:var(--text);font-size:13px;font-weight:700;outline:none;font-family:'DM Sans',sans-serif;text-transform:uppercase}
+.coupon-input:focus{border-color:var(--accent)}
+.coupon-btn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;padding:0 18px;color:#fff;font-size:13px;font-weight:800;cursor:pointer;white-space:nowrap}
+
+/* ── BANNER ─────────────────────────── */
+.promo-banner{margin:0 16px 20px;border-radius:20px;overflow:hidden;position:relative;height:110px;display:flex;align-items:center}
+.promo-banner-bg{position:absolute;inset:0;background:linear-gradient(135deg,#4a0080,#c0006a);overflow:hidden}
+.promo-banner-circles{position:absolute;top:-30px;right:-20px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.promo-banner-content{position:relative;padding:0 20px;z-index:1}
+.promo-banner-tag{font-size:10px;font-weight:800;color:rgba(255,255,255,.7);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.promo-banner-title{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff;margin-bottom:4px}
+.promo-banner-sub{font-size:12px;color:rgba(255,255,255,.75)}
+.promo-banner-badge{position:absolute;right:16px;top:50%;transform:translateY(-50%);background:var(--gold);border-radius:50%;width:58px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:pulse 2s infinite}
+.promo-banner-pct{font-size:20px;font-weight:900;color:#1a0a2e;line-height:1}
+.promo-banner-off{font-size:9px;font-weight:800;color:#1a0a2e}
+
+/* ── REVIEWS ────────────────────────── */
+.reviews-section{padding:0 16px 20px}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:10px}
+.review-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.review-name{font-size:13px;font-weight:700}
+.review-stars{font-size:11px;color:var(--gold)}
+.review-date{font-size:11px;color:var(--muted);margin-left:auto}
+.review-text{font-size:13px;color:var(--sub);line-height:1.6}
+.review-product{font-size:11px;color:var(--accent);font-weight:700;margin-top:6px}
+
+/* ── TRACK ORDER ────────────────────── */
+.track-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:500;display:none;align-items:flex-end}
+.track-modal.open{display:flex}
+.track-sheet{background:var(--surface);width:100%;max-width:430px;margin:0 auto;border-radius:28px 28px 0 0;padding:0 0 40px;animation:slideUp .3s ease}
+.track-step{display:flex;gap:14px;padding:12px 0;position:relative}
+.track-step::before{content:'';position:absolute;left:17px;top:44px;bottom:-12px;width:2px;background:var(--border)}
+.track-step:last-child::before{display:none}
+.track-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;border:2px solid var(--border)}
+.track-dot.done{background:linear-gradient(135deg,var(--success),#059669);border-color:var(--success)}
+.track-dot.active{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:var(--accent);animation:pulse 2s infinite}
+.track-info h4{font-size:14px;font-weight:700;margin-bottom:2px}
+.track-info p{font-size:12px;color:var(--sub)}
+
+/* ── WHATSAPP BTN ───────────────────── */
+.whats-fab{position:fixed;bottom:96px;right:16px;width:52px;height:52px;border-radius:50%;background:#25D366;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:0 6px 20px rgba(37,211,102,.4);z-index:60;animation:float 3s ease-in-out infinite}
+
+/* ── SHARE BTN ──────────────────────── */
+.share-btn{display:flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 14px;color:var(--sub);font-size:12px;font-weight:700;cursor:pointer;margin-top:12px;width:100%;justify-content:center}
+
+/* ── ADMIN MODAL ────────────────────── */
+.admin-modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:600;display:none;flex-direction:column}
+.admin-modal.open{display:flex}
+.admin-top{background:linear-gradient(135deg,#1a0a2e,#2d1060);padding:54px 20px 16px;border-bottom:1px solid var(--border)}
+.admin-top h2{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.admin-top p{color:var(--sub);font-size:13px}
+.admin-content{flex:1;overflow-y:auto;padding:16px}
+.admin-stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.admin-stat{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px}
+.admin-stat-val{font-size:22px;font-weight:900;margin-bottom:4px}
+.admin-stat-label{font-size:11px;color:var(--sub);font-weight:600}
+.admin-product-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:8px}
+.admin-edit-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--accent);font-size:11px;font-weight:700;cursor:pointer;margin-left:auto}
+
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- HEADER -->
+
+<!-- ADMIN BAR -->
+<div class="admin-bar" id="adminBar">
+  <span class="admin-label">⚙️ Modo Admin</span>
+  <div style="display:flex;gap:8px">
+    <button class="admin-btn" onclick="openAdmin()">Painel</button>
+    <button class="admin-btn" onclick="toggleAdmin()">Sair</button>
+  </div>
+</div>
+<div class="header">
+  <div class="logo">
+    <div class="logo-icon">👖</div>
+    <span class="logo-text">TiciaJeans</span>
+  </div>
+  <div class="header-actions">
+    <button class="icon-btn" onclick="openSearch()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <button class="icon-btn" onclick="openCart()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+      <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+    </button>
+  </div>
+</div>
+
+<!-- PAGES -->
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-tag fade-up">✨ Nova Coleção 2025</div>
+    <h1 class="fade-up-d1">Moda que <em>encanta</em><br/>seu estilo</h1>
+    <p class="fade-up-d2">Camisas de botão e shorts tactel masculinos com qualidade premium e preços acessíveis.</p>
+    <div class="hero-btns fade-up-d3">
+      <button class="btn-primary" onclick="scrollToProducts()">🛍️ Ver Produtos</button>
+      <button class="btn-outline" onclick="goPage('sobre')">Sobre nós</button>
+    </div>
+  </div>
+
+
+  <!-- Promo Banner -->
+  <div class="promo-banner" style="cursor:pointer" onclick="showToast('🔥 Use o cupom TICIA10 — 10% OFF!')">
+    <div class="promo-banner-bg"></div>
+    <div class="promo-banner-circles"></div>
+    <div class="promo-banner-content">
+      <div class="promo-banner-tag">✨ Promoção Especial</div>
+      <div class="promo-banner-title">Coleção Verão</div>
+      <div class="promo-banner-sub">Use cupom: <strong>TICIA10</strong></div>
+    </div>
+    <div class="promo-banner-badge">
+      <span class="promo-banner-pct">10%</span>
+      <span class="promo-banner-off">OFF</span>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="section">
+    <div class="section-title">Categorias</div>
+    <div class="section-sub">Escolha sua peça favorita</div>
+    <div class="cats">
+      <div class="cat active" onclick="filterCat('todos', this)">
+        <span class="cat-emoji">👗</span>
+        <span class="cat-label">Todos</span>
+      </div>
+      <div class="cat" onclick="filterCat('camisa', this)">
+        <span class="cat-emoji">👔</span>
+        <span class="cat-label">Camisas</span>
+      </div>
+      <div class="cat" onclick="filterCat('short', this)">
+        <span class="cat-emoji">🩳</span>
+        <span class="cat-label">Shorts</span>
+      </div>
+      <div class="cat" onclick="filterCat('promo', this)">
+        <span class="cat-emoji">🔥</span>
+        <span class="cat-label">Promoção</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products -->
+  <div id="products-section">
+    <div style="padding:0 16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center">
+      <span style="font-size:15px;font-weight:800;font-family:'Playfair Display',serif">Produtos</span>
+      <span style="font-size:12px;color:var(--sub)" id="product-count"></span>
+    </div>
+    <div class="products" id="products-grid"></div>
+  </div>
+
+  <!-- Promo banner -->
+  <div style="margin:0 16px 24px;padding:20px;background:linear-gradient(135deg,rgba(192,132,252,.15),rgba(244,114,182,.15));border:1.5px solid rgba(192,132,252,.3);border-radius:20px;text-align:center">
+    <div style="font-size:28px;margin-bottom:8px">🚚</div>
+    <div style="font-size:15px;font-weight:800;margin-bottom:4px">Frete Grátis</div>
+    <div style="font-size:13px;color:var(--sub)">Em compras acima de R$ 150,00</div>
+  </div>
+</div>
+
+<!-- SOBRE PAGE -->
+<div class="page" id="page-sobre">
+  <div class="about-hero">
+    <div style="font-size:48px;margin-bottom:16px;animation:float 3s ease-in-out infinite">👖</div>
+    <h2>Nossa História</h2>
+    <p>A TiciaJeans nasceu da paixão pela moda masculina acessível e estilosa. Trabalhamos com peças selecionadas com muito cuidado para você se sentir bem em qualquer ocasião.</p>
+  </div>
+  <div class="feature-cards">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(192,132,252,.15)">🎯</div>
+      <div>
+        <h3>Qualidade Premium</h3>
+        <p>Todos os produtos passam por rigoroso controle de qualidade antes de chegar até você.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(244,114,182,.15)">🚀</div>
+      <div>
+        <h3>Entrega Rápida</h3>
+        <p>Enviamos em até 24h após confirmação do pagamento. Rastreie seu pedido em tempo real.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(251,191,36,.15)">💳</div>
+      <div>
+        <h3>Pagamento Seguro</h3>
+        <p>Pix, cartão de crédito e criptomoedas. Compre com segurança e tranquilidade.</p>
+      </div>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:rgba(52,211,153,.15)">🔄</div>
+      <div>
+        <h3>Troca Garantida</h3>
+        <p>Não gostou? Troque em até 7 dias. Sua satisfação é nossa prioridade.</p>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 16px 24px;text-align:center">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:20px">
+      <div style="font-size:13px;color:var(--sub);margin-bottom:6px">WhatsApp / Suporte</div>
+      <div style="font-size:18px;font-weight:800;color:var(--accent)">📲 (11) 99999-9999</div>
+      <div style="font-size:12px;color:var(--sub);margin-top:6px">Seg–Sáb: 9h às 18h</div>
+    </div>
+  </div>
+</div>
+
+<!-- PERFIL PAGE -->
+<div class="page" id="page-perfil">
+  <div class="profile-hero">
+    <div class="profile-avatar">👤</div>
+    <div class="profile-name">Minha Conta</div>
+    <div class="profile-email">Bem-vindo à TiciaJeans!</div>
+  </div>
+  <div class="menu-section">
+    <div class="menu-label">Pedidos</div>
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(192,132,252,.15);display:flex;align-items:center;justify-content:center;font-size:16px">📦</div>
+        <span class="menu-item-text">Meus Pedidos</span>
+        <span class="menu-item-arrow">›</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(244,114,182,.15);display:flex;align-items:center;justify-content:center;font-size:16px">❤️</div>
+        <span class="menu-item-text">Lista de Desejos</span>
+        <span class="menu-item-arrow">›</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(52,211,153,.15);display:flex;align-items:center;justify-content:center;font-size:16px">🔄</div>
+        <span class="menu-item-text">Trocas e Devoluções</span>
+        <span class="menu-item-arrow">›</span>
+      </div>
+    </div>
+    <div class="menu-label">Pagamentos</div>
+    <div class="menu-list">
+      <div class="menu-item" style="background:rgba(192,132,252,.05)">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(52,211,153,.15);display:flex;align-items:center;justify-content:center;font-size:16px">💚</div>
+        <span class="menu-item-text">PIX</span>
+        <span style="font-size:11px;color:var(--success);font-weight:700">Ativo</span>
+      </div>
+      <div class="menu-item" style="background:rgba(192,132,252,.05)">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(192,132,252,.15);display:flex;align-items:center;justify-content:center;font-size:16px">💳</div>
+        <span class="menu-item-text">Cartão de Crédito</span>
+        <span style="font-size:11px;color:var(--success);font-weight:700">Ativo</span>
+      </div>
+      <div class="menu-item" style="background:rgba(192,132,252,.05)">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-size:16px">₿</div>
+        <span class="menu-item-text">Criptomoedas</span>
+        <span style="font-size:11px;color:var(--success);font-weight:700">Ativo</span>
+      </div>
+    </div>
+    <div class="menu-label">App</div>
+    <div class="menu-list">
+      <div class="menu-item">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(251,191,36,.15);display:flex;align-items:center;justify-content:center;font-size:16px">⭐</div>
+        <span class="menu-item-text">Avaliar o App</span>
+        <span class="menu-item-arrow">›</span>
+      </div>
+      <div class="menu-item">
+        <div class="menu-icon" style="width:34px;height:34px;border-radius:10px;background:rgba(244,114,182,.15);display:flex;align-items:center;justify-content:center;font-size:16px">💬</div>
+        <span class="menu-item-text">Fale Conosco</span>
+        <span class="menu-item-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews -->
+  <div class="reviews-section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700">⭐ Avaliações</div>
+        <div style="font-size:12px;color:var(--sub)">4.9 de 5 · 128 avaliações</div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--gold),#d97706);border-radius:10px;padding:6px 12px;font-size:13px;font-weight:800;color:#1a0a2e">4.9 ⭐</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">👩</div>
+        <div>
+          <div class="review-name">Ana Clara M.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <span class="review-date">há 2 dias</span>
+      </div>
+      <div class="review-text">Amei a camisa! O tecido é incrível, muito confortável. Chegou super rápido e bem embalado. Com certeza vou comprar mais!</div>
+      <div class="review-product">📦 Camisa Social Slim Fit · Tam M · Azul</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">👨</div>
+        <div>
+          <div class="review-name">Carlos Eduardo S.</div>
+          <div class="review-stars">★★★★★</div>
+        </div>
+        <span class="review-date">há 5 dias</span>
+      </div>
+      <div class="review-text">O short tactel é exatamente como descrito. Qualidade ótima, acabamento perfeito. Já comprei 3 cores diferentes!</div>
+      <div class="review-product">📦 Short Tactel Basic · Tam G · Preto</div>
+    </div>
+    <div class="review-card">
+      <div class="review-header">
+        <div class="review-avatar">👩‍🦱</div>
+        <div>
+          <div class="review-name">Fernanda R.</div>
+          <div class="review-stars">★★★★☆</div>
+        </div>
+        <span class="review-date">há 1 semana</span>
+      </div>
+      <div class="review-text">Produtos de qualidade, entrega dentro do prazo. A camisa xadrez ficou linda no meu namorado. Recomendo muito!</div>
+      <div class="review-product">📦 Camisa Xadrez Country · Tam G · Marrom</div>
+    </div>
+    <button onclick="showToast('📝 Função disponível após a compra!')" style="width:100%;padding:12px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;color:var(--accent);font-size:13px;font-weight:700;cursor:pointer;margin-top:4px">
+      + Escrever avaliação
+    </button>
+  </div>
+
+  <!-- Rastrear Pedido -->
+  <div style="margin:0 16px 24px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;display:flex;align-items:center;gap:14px;cursor:pointer" onclick="openTrack()">
+    <div style="width:44px;height:44px;border-radius:13px;background:rgba(192,132,252,.15);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">📍</div>
+    <div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:2px">Rastrear meu pedido</div>
+      <div style="font-size:12px;color:var(--sub)">Veja onde está sua encomenda</div>
+    </div>
+    <div style="margin-left:auto;color:var(--muted);font-size:18px">›</div>
+  </div>
+
+</div>
+
+<!-- WhatsApp FAB -->
+<button class="whats-fab" onclick="openWhatsApp()" title="Fale conosco no WhatsApp">💬</button>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <button class="nav-item active" onclick="goPage('home')" id="nav-home">
+    <div class="nav-dot"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="nav-home-icon"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="nav-label">Home</span>
+  </button>
+  <button class="nav-item" onclick="goPage('sobre')" id="nav-sobre">
+    <div class="nav-dot"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span class="nav-label">Sobre</span>
+  </button>
+  <button class="nav-item" onclick="openCart()" id="nav-cart">
+    <div class="nav-dot"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+    <span class="nav-label">Carrinho</span>
+  </button>
+  <button class="nav-item" onclick="goPage('perfil')" id="nav-perfil">
+    <div class="nav-dot"></div>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="nav-label">Perfil</span>
+  </button>
+</div>
+
+<!-- PRODUCT DETAIL SHEET -->
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet()"></div>
+<div class="detail-sheet" id="detailSheet">
+  <div class="sheet-handle"><div></div></div>
+  <div class="detail-hero" id="detailHero">
+    <button class="detail-close" onclick="closeSheet()">✕</button>
+    <span id="detailEmoji" style="font-size:96px"></span>
+  </div>
+  <div class="detail-body">
+    <div id="detailBadge" style="margin-bottom:8px"></div>
+    <div class="detail-name" id="detailName"></div>
+    <div style="color:var(--sub);font-size:13px;margin-bottom:12px;line-height:1.6" id="detailDesc"></div>
+    <div class="detail-price" id="detailPrice"></div>
+
+    <div class="selector-label">Cor</div>
+    <div class="color-selector" id="colorSelector"></div>
+
+    <button class="size-guide-btn" onclick="openSizeGuide()">📏 Ver Guia de Tamanhos</button>
+    <div class="selector-label">Tamanho</div>
+    <div class="size-selector" id="sizeSelector"></div>
+
+    <div class="selector-label" style="margin-bottom:10px">Quantidade</div>
+    <div class="qty-row">
+      <button class="qty-btn" onclick="changeQty(-1)">−</button>
+      <span class="qty-val" id="qtyVal">1</span>
+      <button class="qty-btn" onclick="changeQty(1)">+</button>
+      <span style="font-size:13px;color:var(--sub);margin-left:4px">em estoque</span>
+    </div>
+
+    <button class="add-cart-btn" onclick="addToCart()">
+      🛍️ Adicionar ao Carrinho
+    </button>
+
+    <button class="share-btn" onclick="shareProduct()">🔗 Compartilhar Produto</button>
+
+  </div>
+</div>
+
+<!-- CART OVERLAY -->
+<div class="overlay-bg" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <span class="cart-title">Meu Carrinho</span>
+    <button onclick="closeCart()" style="background:var(--surface2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--sub);display:flex;align-items:center;justify-content:center">✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-value" id="cartTotal"></span>
+    </div>
+    <button class="checkout-btn" onclick="openCheckout()">Finalizar Compra →</button>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="checkoutModal">
+  <div class="checkout-modal">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">Finalizar Compra</span>
+      <button onclick="closeCheckout()" style="background:var(--surface2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--sub);display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div class="steps" id="checkoutSteps">
+      <div class="step active" onclick="goStep(0)">📍 Dados</div>
+      <div class="step" onclick="goStep(1)">💳 Pagamento</div>
+      <div class="step" onclick="goStep(2)">✅ Confirmar</div>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ─────────────────────────────────────────────────
+const PRODUCTS = [
+  {
+    id:1, name:"Camisa Social Slim Fit", cat:"camisa",
+    emoji:"👔", price:89.90, priceOld:120,
+    desc:"Camisa de botão slim fit com tecido premium 100% algodão. Perfeita para o dia a dia ou ocasiões especiais.",
+    colors:["#1a1a2e","#ffffff","#4a90d9","#c84b31","#2d6a4f","#f4a261"],
+    colorNames:["Preto","Branco","Azul","Vermelho","Verde","Laranja"],
+    sizes:["P","M","G","GG","XGG"],
+    badge:"NOVO", promo:false
+  },
+  {
+    id:2, name:"Camisa Havaiana Estampada", cat:"camisa",
+    emoji:"🌺", price:79.90, priceOld:null,
+    desc:"Camisa havaiana com estampas exclusivas. Leve e confortável para o verão.",
+    colors:["#ff6b6b","#4ecdc4","#45b7d1","#96ceb4","#ffeaa7"],
+    colorNames:["Coral","Turquesa","Azul","Verde","Amarelo"],
+    sizes:["P","M","G","GG"],
+    badge:null, promo:false
+  },
+  {
+    id:3, name:"Camisa Xadrez Country", cat:"camisa",
+    emoji:"🤠", price:94.90, priceOld:130,
+    desc:"Camisa xadrez estilo country com botões de madrepérola. Muito confortável e estilosa.",
+    colors:["#8b4513","#2c3e50","#27ae60","#c0392b"],
+    colorNames:["Marrom","Azul Escuro","Verde","Vermelho"],
+    sizes:["P","M","G","GG","XGG","XXXG"],
+    badge:"OFERTA", promo:true
+  },
+  {
+    id:4, name:"Short Tactel Basic", cat:"short",
+    emoji:"🩳", price:59.90, priceOld:null,
+    desc:"Short tactel masculino básico com elástico e cordão. Tecido leve e de secagem rápida.",
+    colors:["#1a1a2e","#2c3e50","#27ae60","#c0392b","#f39c12","#8e44ad"],
+    colorNames:["Preto","Marinho","Verde","Vermelho","Amarelo","Roxo"],
+    sizes:["P","M","G","GG","XGG"],
+    badge:null, promo:false
+  },
+  {
+    id:5, name:"Short Tactel Camuflado", cat:"short",
+    emoji:"🎽", price:64.90, priceOld:85,
+    desc:"Short tactel camuflado com bolsos laterais e traseiros. Estilo esportivo e casual.",
+    colors:["#4a5240","#8b7355","#1a1a2e"],
+    colorNames:["Camuflado Verde","Camuflado Bege","Camuflado Preto"],
+    sizes:["P","M","G","GG"],
+    badge:"OFERTA", promo:true
+  },
+  {
+    id:6, name:"Short Tactel Premium", cat:"short",
+    emoji:"⚡", price:74.90, priceOld:null,
+    desc:"Short tactel premium com acabamento diferenciado. Bolso traseiro com zíper e elástico reforçado.",
+    colors:["#1a1a2e","#c0392b","#2980b9","#16a085"],
+    colorNames:["Preto","Vermelho","Azul","Verde Água"],
+    sizes:["P","M","G","GG","XGG"],
+    badge:"NOVO", promo:false
+  },
+];
+
+const SIZES_ALL = ["P","M","G","GG","XGG","XXXG"];
+
+let cart = [];
+let currentProduct = null;
+let selectedColor = 0;
+let selectedSize = null;
+let qty = 1;
+let checkoutStep = 0;
+let payMethod = "pix";
+let selectedCrypto = "BTC";
+let pixTimer = 600; // 10 min
+let pixInterval = null;
+let customerData = {};
+
+// ── PRODUCTS ──────────────────────────────────────────────
+function renderProducts(filter = "todos") {
+  const grid = document.getElementById("products-grid");
+  const filtered = filter === "todos" ? PRODUCTS :
+    filter === "promo" ? PRODUCTS.filter(p => p.promo) :
+    PRODUCTS.filter(p => p.cat === filter);
+
+  document.getElementById("product-count").textContent = `${filtered.length} produto${filtered.length !== 1 ? "s" : ""}`;
+
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      <div class="product-img">
+        <span style="font-size:64px">${p.emoji}</span>
+        ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ""}
+        <button class="product-wish" onclick="event.stopPropagation();wishlist(${p.id}, this)">🤍</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-colors">
+          ${p.colors.slice(0,5).map(c => `<div class="color-dot" style="background:${c}"></div>`).join("")}
+          ${p.colors.length > 5 ? `<span style="font-size:10px;color:var(--sub);line-height:14px">+${p.colors.length-5}</span>` : ""}
+        </div>
+        <div class="product-price">
+          R$ ${p.price.toFixed(2).replace(".",",")}
+          ${p.priceOld ? `<span style="font-size:11px;color:var(--muted);text-decoration:line-through;margin-left:4px">R$ ${p.priceOld.toFixed(2).replace(".",",")}</span>` : ""}
+        </div>
+        <div class="product-sizes">
+          ${p.sizes.map(s => `<span class="size-chip">${s}</span>`).join("")}
+        </div>
+      </div>
+    </div>
+  `).join("");
+}
+
+function filterCat(cat, el) {
+  document.querySelectorAll(".cat").forEach(c => c.classList.remove("active"));
+  el.classList.add("active");
+  renderProducts(cat);
+}
+
+function scrollToProducts() {
+  document.getElementById("products-section").scrollIntoView({behavior:"smooth"});
+}
+
+// ── PRODUCT DETAIL ────────────────────────────────────────
+function openProduct(id) {
+  currentProduct = PRODUCTS.find(p => p.id === id);
+  selectedColor = 0;
+  selectedSize = null;
+  qty = 1;
+
+  document.getElementById("detailEmoji").textContent = currentProduct.emoji;
+  document.getElementById("detailName").textContent = currentProduct.name;
+  document.getElementById("detailDesc").textContent = currentProduct.desc;
+  document.getElementById("detailPrice").textContent = `R$ ${currentProduct.price.toFixed(2).replace(".",",")}`;
+  document.getElementById("qtyVal").textContent = "1";
+  document.getElementById("detailBadge").innerHTML = currentProduct.badge
+    ? `<span style="background:var(--accent2);color:#fff;font-size:11px;font-weight:800;padding:3px 10px;border-radius:99px">${currentProduct.badge}</span>`
+    : "";
+
+  // Colors
+  document.getElementById("colorSelector").innerHTML = currentProduct.colors.map((c, i) => `
+    <div class="color-opt ${i === 0 ? "selected" : ""}" style="background:${c}"
+      onclick="selectColor(${i}, this)" title="${currentProduct.colorNames[i]}"></div>
+  `).join("");
+
+  // Sizes
+  document.getElementById("sizeSelector").innerHTML = currentProduct.sizes.map(s => `
+    <button class="size-opt" onclick="selectSize('${s}', this)">${s}</button>
+  `).join("");
+
+  document.getElementById("sheetOverlay").classList.add("open");
+  document.getElementById("detailSheet").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSheet() {
+  document.getElementById("sheetOverlay").classList.remove("open");
+  document.getElementById("detailSheet").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function selectColor(i, el) {
+  selectedColor = i;
+  document.querySelectorAll(".color-opt").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+}
+
+function selectSize(s, el) {
+  selectedSize = s;
+  document.querySelectorAll(".size-opt").forEach(b => b.classList.remove("selected"));
+  el.classList.add("selected");
+}
+
+function changeQty(d) {
+  qty = Math.max(1, Math.min(10, qty + d));
+  document.getElementById("qtyVal").textContent = qty;
+}
+
+function addToCart() {
+  if (!selectedSize) { showToast("⚠️ Selecione um tamanho!"); return; }
+  const item = {
+    id: Date.now(),
+    product: currentProduct,
+    color: selectedColor,
+    colorName: currentProduct.colorNames[selectedColor],
+    colorHex: currentProduct.colors[selectedColor],
+    size: selectedSize,
+    qty,
+    total: currentProduct.price * qty,
+  };
+  cart.push(item);
+  updateCartBadge();
+  closeSheet();
+  showToast(`✅ ${currentProduct.name} adicionado!`);
+}
+
+// ── CART ──────────────────────────────────────────────────
+function updateCartBadge() {
+  const badge = document.getElementById("cartBadge");
+  const total = cart.reduce((a, i) => a + i.qty, 0);
+  if (total > 0) { badge.style.display = "flex"; badge.textContent = total; }
+  else badge.style.display = "none";
+}
+
+function openCart() {
+  renderCart();
+  document.getElementById("cartDrawer").classList.add("open");
+  document.getElementById("cartOverlay").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCart() {
+  document.getElementById("cartDrawer").classList.remove("open");
+  document.getElementById("cartOverlay").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function renderCart() {
+  const el = document.getElementById("cartItems");
+  const footer = document.getElementById("cartFooter");
+  if (cart.length === 0) {
+    el.innerHTML = `<div class="empty-cart"><span class="empty-cart-icon">🛒</span><h3>Carrinho vazio</h3><p>Adicione produtos para continuar</p></div>`;
+    footer.style.display = "none";
+    return;
+  }
+  el.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">${item.product.emoji}</div>
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.product.name}</div>
+        <div class="cart-item-meta">
+          <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${item.colorHex};margin-right:4px;vertical-align:middle;border:1px solid var(--border)"></span>
+          ${item.colorName} · Tam ${item.size} · Qtd ${item.qty}
+        </div>
+        <div class="cart-item-price">R$ ${item.total.toFixed(2).replace(".",",")}</div>
+      </div>
+      <button class="cart-item-remove" onclick="removeCartItem(${item.id})">🗑️</button>
+    </div>
+  `).join("");
+  const total = cart.reduce((a, i) => a + i.total, 0);
+  document.getElementById("cartTotal").textContent = `R$ ${total.toFixed(2).replace(".",",")}`;
+  footer.style.display = "block";
+}
+
+function removeCartItem(id) {
+  cart = cart.filter(i => i.id !== id);
+  updateCartBadge();
+  renderCart();
+  showToast("🗑️ Item removido");
+}
+
+// ── CHECKOUT ──────────────────────────────────────────────
+function openCheckout() {
+  closeCart();
+  checkoutStep = 0;
+  renderCheckoutStep();
+  document.getElementById("checkoutModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCheckout() {
+  document.getElementById("checkoutModal").classList.remove("open");
+  document.body.style.overflow = "";
+  if (pixInterval) clearInterval(pixInterval);
+}
+
+function goStep(s) {
+  if (s > checkoutStep) return;
+  checkoutStep = s;
+  renderCheckoutStep();
+}
+
+function renderCheckoutStep() {
+  const steps = document.querySelectorAll(".step");
+  steps.forEach((s, i) => {
+    s.classList.remove("active","done");
+    if (i === checkoutStep) s.classList.add("active");
+    else if (i < checkoutStep) s.classList.add("done");
+  });
+
+  const total = cart.reduce((a, i) => a + i.total, 0);
+  const body = document.getElementById("modalBody");
+
+  if (checkoutStep === 0) {
+    body.innerHTML = `
+      <div style="margin-bottom:16px">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:16px">
+          <div style="font-size:11px;color:var(--sub);margin-bottom:8px;font-weight:700;text-transform:uppercase">Resumo do Pedido</div>
+          ${cart.map(i => `
+            <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px">
+              <span>${i.product.emoji} ${i.product.name} (${i.size} · ${i.qty}x)</span>
+              <span style="font-weight:700;color:var(--accent)">R$ ${i.total.toFixed(2).replace(".",",")}</span>
+            </div>
+          `).join("")}
+          <div style="display:flex;justify-content:space-between;padding-top:10px;font-size:15px;font-weight:800">
+            <span>Total</span><span style="color:var(--accent)">R$ ${total.toFixed(2).replace(".",",")}</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;color:var(--sub);margin-bottom:7px;text-transform:uppercase;letter-spacing:.6px">Cupom de Desconto</div>
+        <div class="coupon-row">
+          <input class="coupon-input" id="couponInput" placeholder="EX: TICIA10"/>
+          <button class="coupon-btn" onclick="applyCoupon()">Aplicar</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nome Completo</label>
+        <input class="form-input" id="f_name" placeholder="Seu nome" value="${customerData.name||''}"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">WhatsApp</label>
+        <input class="form-input" id="f_phone" placeholder="(11) 99999-9999" type="tel" value="${customerData.phone||''}"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">CEP</label>
+        <input class="form-input" id="f_cep" placeholder="00000-000" type="tel" value="${customerData.cep||''}"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Cidade</label>
+          <input class="form-input" id="f_city" placeholder="Cidade" value="${customerData.city||''}"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estado</label>
+          <input class="form-input" id="f_state" placeholder="SP" value="${customerData.state||''}"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Endereço</label>
+        <input class="form-input" id="f_addr" placeholder="Rua, número, bairro" value="${customerData.addr||''}"/>
+      </div>
+      <button class="add-cart-btn" style="margin-top:8px" onclick="nextStep()">Continuar → Pagamento</button>
+    `;
+  }
+
+  else if (checkoutStep === 1) {
+    body.innerHTML = `
+      <div style="margin-bottom:16px">
+        <div style="font-size:13px;color:var(--sub);margin-bottom:14px">Total: <strong style="color:var(--accent);font-size:16px">R$ ${total.toFixed(2).replace(".",",")}</strong></div>
+        <div class="pay-methods">
+          <div class="pay-method ${payMethod==='pix'?'selected':''}" onclick="selectPay('pix')">
+            <div class="pay-icon" style="background:rgba(52,211,153,.15)">💚</div>
+            <div class="pay-info">
+              <div class="pay-name">PIX</div>
+              <div class="pay-desc">Aprovação imediata · 0% de taxa</div>
+            </div>
+            <div class="pay-check">${payMethod==='pix'?'✓':''}</div>
+          </div>
+          <div class="pay-method ${payMethod==='card'?'selected':''}" onclick="selectPay('card')">
+            <div class="pay-icon" style="background:rgba(192,132,252,.15)">💳</div>
+            <div class="pay-info">
+              <div class="pay-name">Cartão de Crédito</div>
+              <div class="pay-desc">Até 12x · Visa, Master, Elo, Amex</div>
+            </div>
+            <div class="pay-check">${payMethod==='card'?'✓':''}</div>
+          </div>
+          <div class="pay-method ${payMethod==='crypto'?'selected':''}" onclick="selectPay('crypto')">
+            <div class="pay-icon" style="background:rgba(251,191,36,.15)">₿</div>
+            <div class="pay-info">
+              <div class="pay-name">Criptomoedas</div>
+              <div class="pay-desc">BTC, ETH, USDT · 0.5% de taxa</div>
+            </div>
+            <div class="pay-check">${payMethod==='crypto'?'✓':''}</div>
+          </div>
+        </div>
+      </div>
+      ${payMethod==='card' ? renderCardForm() : ''}
+      <button class="add-cart-btn" onclick="nextStep()">Revisar Pedido →</button>
+    `;
+  }
+
+  else if (checkoutStep === 2) {
+    body.innerHTML = `
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px">📍 Entrega</div>
+        <div style="font-size:14px;font-weight:600;margin-bottom:2px">${customerData.name}</div>
+        <div style="font-size:13px;color:var(--sub)">${customerData.addr}</div>
+        <div style="font-size:13px;color:var(--sub)">${customerData.city} - ${customerData.state} · ${customerData.cep}</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px">💳 Pagamento</div>
+        <div style="font-size:14px;font-weight:700">${payMethod==='pix'?'💚 PIX':payMethod==='card'?'💳 Cartão de Crédito':'₿ Criptomoeda'}</div>
+      </div>
+      <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:20px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--sub);text-transform:uppercase;letter-spacing:.5px">🛍️ Itens</div>
+        ${cart.map(i=>`
+          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px">
+            <span>${i.product.emoji} ${i.product.name} (${i.size})</span>
+            <span style="font-weight:700">R$ ${i.total.toFixed(2).replace(".",",")}</span>
+          </div>
+        `).join("")}
+        <div style="display:flex;justify-content:space-between;padding-top:10px;font-size:16px;font-weight:900">
+          <span>Total</span><span style="color:var(--accent)">R$ ${total.toFixed(2).replace(".",",")}</span>
+        </div>
+      </div>
+      <button class="add-cart-btn" onclick="confirmOrder()">✅ Confirmar e Pagar</button>
+    `;
+  }
+
+  else if (checkoutStep === 3) {
+    // Payment screen
+    if (payMethod === 'pix') renderPixPayment(total);
+    else if (payMethod === 'card') renderCardPayment(total);
+    else renderCryptoPayment(total);
+  }
+
+  else if (checkoutStep === 4) {
+    document.getElementById("checkoutSteps").style.display = "none";
+    body.innerHTML = `
+      <div class="success-screen">
+        <div class="success-icon">✅</div>
+        <div class="success-title">Pedido Confirmado!</div>
+        <div class="success-sub">Seu pedido foi recebido com sucesso. Você receberá uma confirmação no WhatsApp em breve.</div>
+        <div class="order-id">#TJ${Math.floor(Math.random()*90000+10000)}</div>
+        <button class="btn-primary" style="margin:0 auto" onclick="closeCheckout();cart=[];updateCartBadge();">
+          🛍️ Continuar Comprando
+        </button>
+      </div>
+    `;
+  }
+}
+
+function renderCardForm() {
+  return `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+      <div class="form-group">
+        <label class="form-label">Número do Cartão</label>
+        <input class="form-input" placeholder="0000 0000 0000 0000" type="tel" maxlength="19"
+          oninput="this.value=this.value.replace(/[^0-9]/g,'').replace(/(.{4})/g,'$1 ').trim()"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nome no Cartão</label>
+        <input class="form-input" placeholder="Como está impresso" style="text-transform:uppercase"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Validade</label>
+          <input class="form-input" placeholder="MM/AA" type="tel" maxlength="5"
+            oninput="if(this.value.length===2&&!this.value.includes('/'))this.value+='/'"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">CVV</label>
+          <input class="form-input" placeholder="123" type="tel" maxlength="4"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Parcelas</label>
+        <select class="form-input" style="appearance:none">
+          <option>1x de R$ ${(cart.reduce((a,i)=>a+i.total,0)).toFixed(2).replace(".",",")} (sem juros)</option>
+          <option>2x de R$ ${(cart.reduce((a,i)=>a+i.total,0)/2).toFixed(2).replace(".",",")} (sem juros)</option>
+          <option>3x de R$ ${(cart.reduce((a,i)=>a+i.total,0)/3).toFixed(2).replace(".",",")} (sem juros)</option>
+          <option>6x de R$ ${(cart.reduce((a,i)=>a+i.total,0)/6).toFixed(2).replace(".",",")} (sem juros)</option>
+          <option>12x de R$ ${(cart.reduce((a,i)=>a+i.total,0)/12).toFixed(2).replace(".",",")} (com juros)</option>
+        </select>
+      </div>
+    </div>
+  `;
+}
+
+function renderPixPayment(total) {
+  pixTimer = 600;
+  if (pixInterval) clearInterval(pixInterval);
+  pixInterval = setInterval(() => {
+    pixTimer--;
+    const el = document.getElementById("pixCountdown");
+    if (el) {
+      const m = Math.floor(pixTimer/60).toString().padStart(2,"0");
+      const s = (pixTimer%60).toString().padStart(2,"0");
+      el.textContent = `⏱️ Expira em ${m}:${s}`;
+    }
+    if (pixTimer <= 0) clearInterval(pixInterval);
+  }, 1000);
+
+  // Generate QR code pattern (visual only)
+  const qrPattern = generateQRVisual();
+
+  document.getElementById("modalBody").innerHTML = `
+    <div style="text-align:center;margin-bottom:16px">
+      <div style="font-size:13px;color:var(--sub);margin-bottom:4px">Valor a pagar</div>
+      <div style="font-size:28px;font-weight:900;color:var(--accent)">R$ ${total.toFixed(2).replace(".",",")}</div>
+    </div>
+    <div class="pix-box">
+      <div style="font-size:12px;color:var(--sub);margin-bottom:12px;font-weight:700">Escaneie o QR Code ou copie a chave</div>
+      <div style="width:180px;height:180px;background:#fff;border-radius:12px;margin:0 auto 14px;padding:10px;display:grid;grid-template-columns:repeat(15,1fr);gap:1px">
+        ${qrPattern}
+      </div>
+      <div class="pix-key-label">Chave PIX (CNPJ)</div>
+      <div class="pix-key" onclick="copyPix()">
+        <span>12.345.678/0001-90</span>
+        <span style="font-size:11px;color:var(--accent);font-weight:700">📋 Copiar</span>
+      </div>
+      <div class="pix-timer" id="pixCountdown">⏱️ Expira em 10:00</div>
+    </div>
+    <div style="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.3);border-radius:14px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--sub);line-height:1.6">
+      1. Abra o app do seu banco<br/>
+      2. Escolha pagar com PIX QR Code<br/>
+      3. Escaneie o código acima<br/>
+      4. Confirme o pagamento de <strong style="color:var(--text)">R$ ${total.toFixed(2).replace(".",",")}</strong>
+    </div>
+    <button class="add-cart-btn" style="background:linear-gradient(135deg,var(--success),#059669)" onclick="simulatePayment()">
+      ✅ Já paguei — Confirmar
+    </button>
+  `;
+}
+
+function generateQRVisual() {
+  // Decorative QR-like pattern
+  const cells = [];
+  const pattern = [
+    1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,
+    1,0,0,0,0,0,1,0,0,1,1,0,0,0,1,
+    1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,
+    1,0,1,1,1,0,1,0,0,1,0,0,1,0,1,
+    1,0,1,1,1,0,1,0,1,1,1,0,1,0,1,
+    1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,
+    1,1,1,1,1,1,1,0,1,0,1,1,1,1,1,
+    0,0,0,0,0,0,0,0,1,1,0,1,0,0,0,
+    1,0,1,1,0,1,1,1,0,0,1,0,1,1,0,
+    0,1,0,0,1,0,0,0,1,0,0,1,0,0,1,
+    1,1,1,0,1,1,1,1,0,1,1,0,1,0,1,
+    0,0,0,0,0,0,0,0,1,0,0,1,0,1,0,
+    1,1,1,1,1,1,1,0,0,1,1,0,1,0,1,
+    1,0,0,0,0,0,1,0,1,0,0,1,0,1,0,
+    1,1,1,1,1,1,1,0,0,1,1,0,1,0,1,
+  ];
+  return pattern.map(v => `<div style="background:${v?'#000':'#fff'};border-radius:1px"></div>`).join("");
+}
+
+function copyPix() {
+  showToast("📋 Chave PIX copiada!");
+}
+
+function renderCardPayment(total) {
+  document.getElementById("modalBody").innerHTML = `
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px;animation:spin 1s linear infinite">⚙️</div>
+      <div style="font-size:16px;font-weight:700;margin-bottom:6px">Processando Pagamento</div>
+      <div style="font-size:13px;color:var(--sub)">Aguarde enquanto confirmamos seu cartão...</div>
+    </div>
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="color:var(--sub);font-size:13px">Valor</span>
+        <span style="font-weight:700;color:var(--accent)">R$ ${total.toFixed(2).replace(".",",")}</span>
+      </div>
+      <div style="height:6px;background:var(--border);border-radius:99px;overflow:hidden">
+        <div style="height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;animation:progress 2s ease forwards" id="progBar"></div>
+      </div>
+    </div>
+    <style>@keyframes progress{from{width:0}to{width:100%}}</style>
+  `;
+  setTimeout(() => simulatePayment(), 2500);
+}
+
+function renderCryptoPayment(total) {
+  const cryptos = [
+    {sym:"BTC",name:"Bitcoin",icon:"₿",rate:0.0000015},
+    {sym:"ETH",name:"Ethereum",icon:"Ξ",rate:0.000023},
+    {sym:"USDT",name:"Tether",icon:"₮",rate:total},
+    {sym:"BNB",name:"BNB",icon:"◆",rate:0.0008},
+    {sym:"SOL",name:"Solana",icon:"◎",rate:0.0015},
+    {sym:"PIX",name:"PixCoin",icon:"⚡",rate:0.012},
+  ];
+  const sel = cryptos.find(c=>c.sym===selectedCrypto) || cryptos[0];
+  const addr = "0x742d35Cc6634C0532925a3b844Bc9e7195Ed5E47";
+
+  document.getElementById("modalBody").innerHTML = `
+    <div style="margin-bottom:14px">
+      <div style="font-size:11px;color:var(--sub);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px">Selecione a moeda</div>
+      <div class="crypto-coins">
+        ${cryptos.map(c=>`
+          <div class="crypto-coin ${c.sym===selectedCrypto?'selected':''}" onclick="selectCryptoType('${c.sym}')">
+            <div class="crypto-coin-icon">${c.icon}</div>
+            <div class="crypto-coin-name">${c.sym}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+    <div class="pix-box">
+      <div style="font-size:13px;font-weight:700;margin-bottom:8px">Envie exatamente:</div>
+      <div style="font-size:22px;font-weight:900;color:var(--gold);margin-bottom:4px">${sel.sym === 'USDT' ? total.toFixed(2) : (total * sel.rate).toFixed(8)} ${sel.sym}</div>
+      <div style="font-size:12px;color:var(--sub);margin-bottom:16px">≈ R$ ${total.toFixed(2).replace(".",",")}</div>
+      <div style="font-size:11px;color:var(--sub);font-weight:700;text-transform:uppercase;margin-bottom:8px">Endereço da Carteira (${sel.sym})</div>
+      <div class="crypto-addr" onclick="copyAddr()">${sel.sym === 'BTC' ? '1A1zP1eP5QGefi2DMPTfTL5SLmv7Divf2R' : sel.sym === 'ETH' || sel.sym === 'USDT' ? addr : addr.slice(0,20)+'...'}</div>
+      <button style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:8px 16px;color:var(--text);font-size:12px;font-weight:700;cursor:pointer" onclick="copyAddr()">📋 Copiar Endereço</button>
+    </div>
+    <div style="background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:14px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--sub);line-height:1.7">
+      ⚠️ Envie o valor exato na rede correta.<br/>
+      Confirmações necessárias: ${sel.sym==='BTC'?'3':'12'}<br/>
+      Tempo estimado: ${sel.sym==='BTC'?'~30 min':'~5 min'}
+    </div>
+    <button class="add-cart-btn" style="background:linear-gradient(135deg,var(--gold),#d97706)" onclick="simulatePayment()">
+      ✅ Já enviei — Confirmar
+    </button>
+  `;
+}
+
+function selectCryptoType(sym) {
+  selectedCrypto = sym;
+  const total = cart.reduce((a,i)=>a+i.total,0);
+  renderCryptoPayment(total);
+}
+
+function copyAddr() { showToast("📋 Endereço copiado!"); }
+
+function selectPay(method) {
+  payMethod = method;
+  renderCheckoutStep();
+}
+
+function nextStep() {
+  if (checkoutStep === 0) {
+    const name = document.getElementById("f_name")?.value;
+    const phone = document.getElementById("f_phone")?.value;
+    const cep = document.getElementById("f_cep")?.value;
+    const city = document.getElementById("f_city")?.value;
+    const state = document.getElementById("f_state")?.value;
+    const addr = document.getElementById("f_addr")?.value;
+    if (!name||!phone||!cep||!city||!addr) { showToast("⚠️ Preencha todos os campos!"); return; }
+    customerData = {name,phone,cep,city,state,addr};
+  }
+  checkoutStep++;
+  renderCheckoutStep();
+}
+
+function confirmOrder() {
+  checkoutStep = 3;
+  renderCheckoutStep();
+}
+
+function simulatePayment() {
+  if (pixInterval) clearInterval(pixInterval);
+  checkoutStep = 4;
+  renderCheckoutStep();
+}
+
+// ── NAVIGATION ────────────────────────────────────────────
+function goPage(page) {
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll(".nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById(`page-${page}`).classList.add("active");
+  const navEl = document.getElementById(`nav-${page}`);
+  if (navEl) navEl.classList.add("active");
+  window.scrollTo(0,0);
+}
+
+// ── WISHLIST ──────────────────────────────────────────────
+function wishlist(id, btn) {
+  const liked = btn.textContent === "❤️";
+  btn.textContent = liked ? "🤍" : "❤️";
+  showToast(liked ? "💔 Removido dos favoritos" : "❤️ Adicionado aos favoritos!");
+}
+
+// ── SEARCH ────────────────────────────────────────────────
+function openSearch() {
+  const q = prompt("🔍 Buscar produto:");
+  if (!q) return;
+  const results = PRODUCTS.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.cat.includes(q.toLowerCase()));
+  if (results.length === 0) { showToast("😕 Nenhum resultado encontrado"); return; }
+  showToast(`✅ ${results.length} produto(s) encontrado(s)!`);
+  document.getElementById("products-grid").innerHTML = results.map(p => `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      <div class="product-img"><span style="font-size:64px">${p.emoji}</span></div>
+      <div class="product-info">
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">R$ ${p.price.toFixed(2).replace(".",",")}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+// ── TOAST ─────────────────────────────────────────────────
+function showToast(msg) {
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 2500);
+}
+
+// ── INIT ──────────────────────────────────────────────────
+renderProducts();
+
+
+// ── ADMIN ─────────────────────────────────────────────────
+let adminMode = false;
+// Secret: tap logo 5 times fast
+let logoTaps = 0, logoTimer = null;
+document.querySelector(".logo").addEventListener("click", () => {
+  logoTaps++;
+  clearTimeout(logoTimer);
+  logoTimer = setTimeout(() => logoTaps = 0, 2000);
+  if (logoTaps >= 5) { logoTaps = 0; toggleAdmin(); }
+});
+
+function toggleAdmin() {
+  adminMode = !adminMode;
+  const bar = document.getElementById("adminBar");
+  bar.classList.toggle("visible", adminMode);
+  showToast(adminMode ? "🔓 Modo admin ativado!" : "🔒 Modo admin desativado");
+}
+
+function openAdmin() {
+  // Render product list
+  const list = document.getElementById("adminProductList");
+  list.innerHTML = PRODUCTS.map(p => `
+    <div class="admin-product-row">
+      <div style="font-size:28px">${p.emoji}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700">${p.name}</div>
+        <div style="font-size:12px;color:var(--sub)">R$ ${p.price.toFixed(2).replace(".",",")} · ${p.sizes.length} tamanhos · ${p.colors.length} cores</div>
+      </div>
+      <button class="admin-edit-btn" onclick="showToast('✏️ Editar em breve!')">✏️</button>
+    </div>
+  `).join("");
+  document.getElementById("adminModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeAdmin() {
+  document.getElementById("adminModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ── TRACK ORDER ───────────────────────────────────────────
+function openTrack() {
+  document.getElementById("trackModal").classList.add("open");
+  document.getElementById("trackResult").style.display = "none";
+  document.body.style.overflow = "hidden";
+}
+
+function closeTrack() {
+  document.getElementById("trackModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+function doTrack() {
+  const val = document.getElementById("trackInput").value.trim();
+  if (!val) { showToast("⚠️ Digite o número do pedido!"); return; }
+  showToast("🔍 Buscando pedido...");
+  setTimeout(() => {
+    document.getElementById("trackResult").style.display = "block";
+    showToast("✅ Pedido encontrado!");
+  }, 1000);
+}
+
+// ── SIZE GUIDE ────────────────────────────────────────────
+function openSizeGuide() {
+  document.getElementById("sizeModal").classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+
+function closeSizeGuide() {
+  document.getElementById("sizeModal").classList.remove("open");
+  document.body.style.overflow = "";
+}
+
+// ── COUPON ────────────────────────────────────────────────
+let discount = 0;
+const COUPONS = { "TICIA10": 10, "FRETE0": 0, "TICIA20": 20, "VIP30": 30 };
+
+function applyCoupon() {
+  const code = (document.getElementById("couponInput")?.value || "").trim().toUpperCase();
+  if (!code) { showToast("⚠️ Digite um cupom!"); return; }
+  if (COUPONS[code] !== undefined) {
+    discount = COUPONS[code];
+    if (code === "FRETE0") {
+      showToast("✅ Frete grátis aplicado!");
+    } else {
+      showToast(`✅ Cupom aplicado! ${discount}% de desconto!`);
+    }
+    // Update total display
+    const totalEl = document.querySelector(".cart-total-value");
+    if (totalEl && discount > 0) {
+      const raw = cart.reduce((a,i) => a+i.total, 0);
+      const newTotal = raw * (1 - discount/100);
+      totalEl.textContent = `R$ ${newTotal.toFixed(2).replace(".",",")}`;
+    }
+    document.getElementById("couponInput").style.borderColor = "var(--success)";
+  } else {
+    showToast("❌ Cupom inválido!");
+    document.getElementById("couponInput").style.borderColor = "var(--danger)";
+  }
+}
+
+// ── WHATSAPP ──────────────────────────────────────────────
+function openWhatsApp() {
+  const msg = encodeURIComponent("Olá! Vim pelo site da TiciaJeans e gostaria de saber mais sobre os produtos 👖");
+  window.open(`https://wa.me/5511999999999?text=${msg}`, "_blank");
+}
+
+// ── SHARE ─────────────────────────────────────────────────
+function shareProduct() {
+  if (!currentProduct) return;
+  const text = `👖 ${currentProduct.name} por R$ ${currentProduct.price.toFixed(2).replace(".",",")} na TiciaJeans!`;
+  if (navigator.share) {
+    navigator.share({ title: "TiciaJeans", text, url: window.location.href })
+      .catch(() => showToast("📋 Link copiado!"));
+  } else {
+    navigator.clipboard?.writeText(text + " " + window.location.href);
+    showToast("📋 Link copiado!");
+  }
+}
+
+// ── PWA INSTALL ───────────────────────────────────────────
+let deferredPrompt = null;
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  setTimeout(() => {
+    if (deferredPrompt) showInstallBanner();
+  }, 5000);
+});
+
+function showInstallBanner() {
+  const banner = document.createElement("div");
+  banner.id = "installBanner";
+  banner.style.cssText = `position:fixed;bottom:96px;left:16px;right:16px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;z-index:200;display:flex;align-items:center;gap:12px;box-shadow:0 12px 40px rgba(0,0,0,.4);animation:slideUp .3s ease`;
+  banner.innerHTML = `
+    <div style="font-size:32px">📱</div>
+    <div style="flex:1">
+      <div style="font-size:14px;font-weight:700;margin-bottom:2px">Instalar TiciaJeans</div>
+      <div style="font-size:12px;color:var(--sub)">Adicione à tela inicial para acesso rápido!</div>
+    </div>
+    <button onclick="installPWA()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:10px;padding:8px 14px;color:#fff;font-size:12px;font-weight:800;cursor:pointer;white-space:nowrap">Instalar</button>
+    <button onclick="document.getElementById('installBanner').remove()" style="background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:4px">✕</button>
+  `;
+  document.body.appendChild(banner);
+}
+
+function installPWA() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(r => {
+      if (r.outcome === "accepted") showToast("🎉 App instalado!");
+      deferredPrompt = null;
+      document.getElementById("installBanner")?.remove();
+    });
+  } else {
+    showToast("📱 Toque em 'Adicionar à tela inicial' no menu do navegador!");
+  }
+}
+
+// ── RATING STARS ──────────────────────────────────────────
+function renderStars(rating, max=5) {
+  return Array.from({length:max}, (_,i) => i < rating ? "★" : "☆").join("");
+}
+
+// ── CLOSE MODALS ON OVERLAY ───────────────────────────────
+document.getElementById("trackModal").addEventListener("click", function(e) {
+  if (e.target === this) closeTrack();
+});
+document.getElementById("sizeModal").addEventListener("click", function(e) {
+  if (e.target === this) closeSizeGuide();
+});
+document.getElementById("checkoutModal").addEventListener("click", function(e) {
+  if (e.target === this) closeCheckout();
+});
+
+</script>
+
+<!-- TRACK ORDER MODAL -->
+<div class="track-modal" id="trackModal">
+  <div class="track-sheet" style="max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:center;padding:12px 0 4px"><div style="width:40px;height:4px;background:var(--border);border-radius:99px"></div></div>
+    <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700">📍 Rastrear Pedido</div>
+      <button onclick="closeTrack()" style="background:var(--surface2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--sub);display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:20px">
+      <div class="form-group" style="margin-bottom:16px">
+        <label class="form-label">Número do Pedido</label>
+        <div style="display:flex;gap:8px">
+          <input class="form-input" id="trackInput" placeholder="Ex: TJ38291" style="flex:1"/>
+          <button onclick="doTrack()" style="background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:12px;padding:0 18px;color:#fff;font-size:13px;font-weight:700;cursor:pointer">Buscar</button>
+        </div>
+      </div>
+      <div id="trackResult" style="display:none">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+            <span style="font-size:13px;font-weight:700;color:var(--accent)">#TJ38291</span>
+            <span style="font-size:11px;background:rgba(52,211,153,.15);color:var(--success);padding:3px 8px;border-radius:99px;font-weight:700">Em trânsito</span>
+          </div>
+          <div style="font-size:12px;color:var(--sub)">Camisa Social Slim Fit · Tam M · Azul</div>
+          <div style="font-size:12px;color:var(--sub)">Previsão: <strong style="color:var(--text)">Amanhã até 18h</strong></div>
+        </div>
+        <div style="padding:0 4px">
+          <div class="track-step">
+            <div class="track-dot done">✅</div>
+            <div class="track-info"><h4>Pedido Confirmado</h4><p>Pago via PIX · 25/04 às 10:32</p></div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot done">📦</div>
+            <div class="track-info"><h4>Preparando Pedido</h4><p>Em separação no estoque · 25/04 às 11:00</p></div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot active">🚚</div>
+            <div class="track-info"><h4>Em Trânsito</h4><p>Saiu para entrega · Previsão: hoje</p></div>
+          </div>
+          <div class="track-step">
+            <div class="track-dot" style="color:var(--muted)">🏠</div>
+            <div class="track-info" style="opacity:.5"><h4>Entregue</h4><p>Aguardando...</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIZE GUIDE MODAL -->
+<div class="track-modal" id="sizeModal">
+  <div class="track-sheet" style="max-height:90vh;overflow-y:auto">
+    <div style="display:flex;justify-content:center;padding:12px 0 4px"><div style="width:40px;height:4px;background:var(--border);border-radius:99px"></div></div>
+    <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700">📏 Guia de Tamanhos</div>
+      <button onclick="closeSizeGuide()" style="background:var(--surface2);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:16px;color:var(--sub);display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:20px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--accent)">👔 Camisas de Botão</div>
+      <table class="size-table" style="margin-bottom:20px">
+        <tr><th>Tam</th><th>Peito (cm)</th><th>Ombro (cm)</th><th>Comprimento</th></tr>
+        <tr><td><strong>P</strong></td><td>96–100</td><td>42</td><td>68</td></tr>
+        <tr><td><strong>M</strong></td><td>100–104</td><td>44</td><td>70</td></tr>
+        <tr><td><strong>G</strong></td><td>104–108</td><td>46</td><td>72</td></tr>
+        <tr><td><strong>GG</strong></td><td>108–112</td><td>48</td><td>74</td></tr>
+        <tr><td><strong>XGG</strong></td><td>112–118</td><td>50</td><td>76</td></tr>
+        <tr><td><strong>XXXG</strong></td><td>118–124</td><td>52</td><td>78</td></tr>
+      </table>
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--accent)">🩳 Shorts Tactel</div>
+      <table class="size-table">
+        <tr><th>Tam</th><th>Cintura (cm)</th><th>Quadril (cm)</th><th>Comprimento</th></tr>
+        <tr><td><strong>P</strong></td><td>78–82</td><td>90–94</td><td>48</td></tr>
+        <tr><td><strong>M</strong></td><td>82–86</td><td>94–98</td><td>50</td></tr>
+        <tr><td><strong>G</strong></td><td>86–90</td><td>98–102</td><td>52</td></tr>
+        <tr><td><strong>GG</strong></td><td>90–96</td><td>102–108</td><td>54</td></tr>
+        <tr><td><strong>XGG</strong></td><td>96–104</td><td>108–116</td><td>56</td></tr>
+      </table>
+      <div style="background:rgba(192,132,252,.1);border:1px solid rgba(192,132,252,.3);border-radius:12px;padding:12px;margin-top:16px;font-size:12px;color:var(--sub);line-height:1.7">
+        💡 <strong style="color:var(--text)">Dica:</strong> Em caso de dúvida entre dois tamanhos, prefira o maior. Nossas peças são slim fit.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-top">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start">
+      <div>
+        <h2>⚙️ Painel Admin</h2>
+        <p>TiciaJeans — Gestão da Loja</p>
+      </div>
+      <button onclick="closeAdmin()" style="background:rgba(255,255,255,.1);border:none;border-radius:50%;width:36px;height:36px;cursor:pointer;font-size:18px;color:#fff;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+  </div>
+  <div class="admin-content">
+    <!-- Stats -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px">Resumo do Dia</div>
+    <div class="admin-stat-grid">
+      <div class="admin-stat">
+        <div class="admin-stat-val" style="color:var(--accent)">R$ 847</div>
+        <div class="admin-stat-label">Faturamento Hoje</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val" style="color:var(--success)">12</div>
+        <div class="admin-stat-label">Pedidos Hoje</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val" style="color:var(--gold)">6</div>
+        <div class="admin-stat-label">Produtos Cadastrados</div>
+      </div>
+      <div class="admin-stat">
+        <div class="admin-stat-val" style="color:var(--accent2)">4.9⭐</div>
+        <div class="admin-stat-label">Nota Média</div>
+      </div>
+    </div>
+
+    <!-- Products -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;margin-top:20px">Produtos</div>
+    <div id="adminProductList"></div>
+
+    <!-- Add product -->
+    <button onclick="showToast('📦 Cadastro de produto em breve!')" style="width:100%;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;border-radius:14px;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:4px">
+      + Adicionar Novo Produto
+    </button>
+
+    <!-- Coupon manager -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;margin-top:20px">Cupons Ativos</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--accent)">TICIA10</div>
+        <div style="font-size:12px;color:var(--sub)">10% de desconto · Ativo</div>
+      </div>
+      <span style="background:rgba(52,211,153,.15);color:var(--success);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px">Ativo</span>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <div style="font-size:14px;font-weight:800;color:var(--gold)">FRETE0</div>
+        <div style="font-size:12px;color:var(--sub)">Frete grátis · Ativo</div>
+      </div>
+      <span style="background:rgba(52,211,153,.15);color:var(--success);font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px">Ativo</span>
+    </div>
+
+    <!-- Payments summary -->
+    <div style="font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:10px;margin-top:20px">Pagamentos Recebidos Hoje</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700">💚 PIX</div><div style="font-size:11px;color:var(--sub)">7 pedidos</div></div>
+          <div style="font-size:15px;font-weight:900;color:#34d399">R$ 423,80</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--border)">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700">💳 Cartão</div><div style="font-size:11px;color:var(--sub)">4 pedidos</div></div>
+          <div style="font-size:15px;font-weight:900;color:#c084fc">R$ 328,90</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px">
+          <div style="flex:1"><div style="font-size:13px;font-weight:700">₿ Cripto</div><div style="font-size:11px;color:var(--sub)">1 pedido</div></div>
+          <div style="font-size:15px;font-weight:900;color:#fbbf24">R$ 94,30</div>
+        </div>
+    </div>
+
+    <div style="height:40px"></div>
+  </div>
+</div>
+
+</body>
+</html>
