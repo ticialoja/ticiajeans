@@ -12,6 +12,8 @@
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:#f0f2fa;overflow-x:hidden}
@@ -33,6 +35,83 @@ input,textarea,button{font-family:'DM Sans',sans-serif}
 <body>
 <div id="root"></div>
 <script type="text/babel">
+
+// ── SUPABASE + CLOUDINARY CONFIG ─────────────────────────
+const SUPA_URL = 'https://uraahzfdxnymfuzdeecu.supabase.co';
+const SUPA_KEY = 'sb_publishable_QIHopB-spzLdKQa06Q_dew_25aYP1hE';
+const CLOUD_NAME = 'drp6jnbwi';
+const DB = window.supabase ? window.supabase.createClient(SUPA_URL, SUPA_KEY) : null;
+
+async function dbLoadProdutos() {
+  if (!DB) return null;
+  const { data, error } = await DB.from('produtos').select('*').order('criado_em');
+  if (error) { console.error(error); return null; }
+  return data;
+}
+
+async function dbSaveProduto(p) {
+  if (!DB) return null;
+  const row = {
+    nome: p.name, descricao: p.desc, preco: p.price,
+    preco_antigo: p.priceOld || null, categoria: p.cat,
+    emoji: p.image || p.emoji || '👕',
+    cores: (p.colors||[]).map((c,i) => ({hex:c, nome:(p.colorNames||[])[i]||c})),
+    tamanhos: p.sizes || [],
+    estoque: p.stock || 0,
+    destaque: p.badge === 'NOVO' || p.badge === 'DESTAQUE',
+    ativo: p.status !== 'out_of_stock',
+    foto_url: p.foto || null
+  };
+  if (p.dbId) {
+    const { data, error } = await DB.from('produtos').update(row).eq('id', p.dbId).select();
+    if (error) console.error('Update error:', error);
+    return data?.[0];
+  } else {
+    const { data, error } = await DB.from('produtos').insert([row]).select();
+    if (error) console.error('Insert error:', error);
+    return data?.[0];
+  }
+}
+
+async function dbDeleteProduto(dbId) {
+  if (!DB || !dbId) return;
+  await DB.from('produtos').delete().eq('id', dbId);
+}
+
+function notificarWA(pedido, numero) {
+  const msg = `🛍️ *NOVO PEDIDO TiciaJeans*%0A*Pedido:* ${numero}%0A*Cliente:* ${pedido.cliente_nome}%0A*Total:* R$ ${pedido.total}%0A*Pagto:* ${pedido.pagamento}`;
+  window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
+}
+
+async function uploadFotoCloudinary(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', 'ml_default');
+  const r = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {method:'POST',body:fd});
+  const d = await r.json();
+  return d.secure_url || null;
+}
+
+function dbToProduct(p) {
+  return {
+    id: p.id, dbId: p.id,
+    name: p.nome, cat: p.categoria,
+    image: p.emoji || '👕', emoji: p.emoji || '👕',
+    price: parseFloat(p.preco),
+    priceOld: p.preco_antigo ? parseFloat(p.preco_antigo) : null,
+    desc: p.descricao || '',
+    colors: Array.isArray(p.cores) ? p.cores.map(c=>c.hex||c) : [],
+    colorNames: Array.isArray(p.cores) ? p.cores.map(c=>c.nome||c) : [],
+    sizes: Array.isArray(p.tamanhos) ? p.tamanhos : [],
+    stock: p.estoque || 0,
+    sales: 0, marketplaces: [],
+    status: p.ativo ? (p.estoque === 0 ? 'out_of_stock' : p.estoque < 10 ? 'low_stock' : 'active') : 'out_of_stock',
+    synced: true, foto: p.foto_url || null,
+    badge: p.destaque ? 'DESTAQUE' : null,
+    description: p.descricao || ''
+  };
+}
+
 const{useState,useEffect,useCallback,useRef}=React;
 
 // ── DATA ──────────────────────────────────────────────────
@@ -371,7 +450,22 @@ const ProductModal=({product,onClose,onSave,dark})=>{
           {step===0?(
             <>
               <div style={{marginBottom:18}}>
-                <label style={{display:"block",fontSize:11,fontWeight:700,color:t.sub,marginBottom:8,textTransform:"uppercase",letterSpacing:.6}}>Ícone</label>
+                <label style={{display:"block",fontSize:11,fontWeight:700,color:t.sub,marginBottom:8,textTransform:"uppercase",letterSpacing:.6}}>Foto do Produto</label>
+              <div style={{marginBottom:14}}>
+                <label style={{display:"flex",alignItems:"center",gap:10,background:t.input,border:`1.5px dashed ${t.border}`,borderRadius:14,padding:"14px",cursor:"pointer",justifyContent:"center",flexDirection:"column"}}>
+                  {form.foto ? <img src={form.foto} style={{width:80,height:80,borderRadius:12,objectFit:"cover"}}/> : <span style={{fontSize:36}}>📷</span>}
+                  <span style={{color:t.sub,fontSize:12,marginTop:6}}>{form.foto?"Trocar foto":"Adicionar foto do produto"}</span>
+                  <input type="file" accept="image/*" style={{display:"none"}} onChange={async e=>{
+                    const file=e.target.files[0];
+                    if(!file)return;
+                    setForm(f=>({...f,foto:"carregando..."}));
+                    const url=await uploadFotoCloudinary(file);
+                    if(url) setForm(f=>({...f,foto:url}));
+                    else setForm(f=>({...f,foto:null}));
+                  }}/>
+                </label>
+              </div>
+              <label style={{display:"block",fontSize:11,fontWeight:700,color:t.sub,marginBottom:8,textTransform:"uppercase",letterSpacing:.6}}>Ícone (backup)</label>
                 <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
                   {emojis.map(e=>(
                     <button key={e} onClick={()=>setForm(f=>({...f,image:e}))}
@@ -1340,6 +1434,16 @@ function App(){
   const[dark,setDark]=useState(false);
   const[page,setPage]=useState("home");
   const[products,setProducts]=useState(PRODUCTS);
+  const[dbLoaded,setDbLoaded]=useState(false);
+
+  useEffect(()=>{
+    dbLoadProdutos().then(data=>{
+      if(data&&data.length>0){
+        setProducts(data.map(dbToProduct));
+        setDbLoaded(true);
+      }
+    });
+  },[]);
   const[notifs,setNotifs]=useState(NOTIFS);
   const[notifOpen,setNotifOpen]=useState(false);
   const[searchOpen,setSearchOpen]=useState(false);
@@ -1351,10 +1455,15 @@ function App(){
     setTimeout(()=>setToast(p=>({...p,visible:false})),2600);
   },[]);
 
-  const handleAddEdit=p=>setProducts(prev=>{
+  const handleAddEdit=async(p)=>{
+    // Save to Supabase
+    const saved = await dbSaveProduto(p);
+    if(saved) p = {...p, dbId: saved.id};
+    setProducts(prev=>{
     const ex=prev.find(x=>x.id===p.id);
     return ex?prev.map(x=>x.id===p.id?p:x):[p,...prev];
-  });
+    });
+  };
 
   const t=T(dark);
   const unread=notifs.filter(n=>!n.read).length;
@@ -1404,7 +1513,11 @@ function App(){
       {/* Pages */}
       <div key={page} className="page-enter" style={{paddingBottom:82}}>
         {page==="home"&&<HomePage dark={dark} products={products} orders={ORDERS} onToast={showToast}/>}
-        {page==="products"&&<ProductsPage dark={dark} products={products} onAddEdit={handleAddEdit} onDelete={id=>setProducts(p=>p.filter(x=>x.id!==id))} onToast={showToast}/>}
+        {page==="products"&&<ProductsPage dark={dark} products={products} onAddEdit={handleAddEdit} onDelete={async id=>{
+          const p = products.find(x=>x.id===id);
+          if(p?.dbId) await dbDeleteProduto(p.dbId);
+          setProducts(prev=>prev.filter(x=>x.id!==id));
+        }} onToast={showToast}/>}
         {page==="orders"&&<OrdersPage dark={dark} orders={ORDERS}/>}
         {page==="stores"&&<StoresPage dark={dark} onToast={showToast}/>}
         {page==="profile"&&<ProfilePage dark={dark} toggleDark={()=>setDark(d=>!d)} onLogout={()=>setLoggedIn(false)}/>}
