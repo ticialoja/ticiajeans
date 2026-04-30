@@ -1429,8 +1429,8 @@ const MoreMenu=({open,onClose,dark,onNavigate})=>{
 
 // ── ROOT APP ───────────────────────────────────────────────
 function App(){
-  const[onboarded,setOnboarded]=useState(false);
-  const[loggedIn,setLoggedIn]=useState(false);
+  const[onboarded,setOnboarded]=useState(()=>localStorage.getItem('mh_onboarded')==='1');
+  const[loggedIn,setLoggedIn]=useState(()=>localStorage.getItem('mh_logged')==='1');
   const[dark,setDark]=useState(false);
   const[page,setPage]=useState("home");
   const[products,setProducts]=useState(PRODUCTS);
@@ -1478,8 +1478,8 @@ function App(){
   const isExtra=extraPages.includes(page);
   const titles={home:"MarketHub",products:"Produtos",orders:"Pedidos",stores:"Lojas",profile:"Perfil",analytics:"Analytics",pricing:"Preços",reports:"Relatórios"};
 
-  if(!onboarded)return <Onboarding onDone={()=>setOnboarded(true)} dark={dark}/>;
-  if(!loggedIn)return <Login onLogin={()=>setLoggedIn(true)} dark={dark}/>;
+  if(!onboarded)return <Onboarding onDone={()=>{localStorage.setItem('mh_onboarded','1');setOnboarded(true);}} dark={dark}/>;
+  if(!loggedIn)return <Login onLogin={()=>{localStorage.setItem('mh_logged','1');setLoggedIn(true);}} dark={dark}/>;
 
   return(
     <div style={{background:t.bg,minHeight:"100vh",fontFamily:"'DM Sans',sans-serif",color:t.text}}>
